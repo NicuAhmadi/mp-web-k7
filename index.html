@@ -1062,5 +1062,17 @@
     <p class="small muted-text footer-privacy">This site uses Google Analytics, which sets cookies, to measure how visitors use it. <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">How Google uses this data</a> &middot; <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Opt out</a></p>
   </div>
 </footer>
+<script>
+  // Sends an apply_click event to Google Analytics, noting which button was used.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href*="/ApplyNow"]');
+    if (!link) return;
+    var where = link.closest('.site-header') ? 'header'
+      : link.closest('.hero') ? 'hero'
+      : link.closest('.cta-band') ? 'bottom_banner'
+      : link.closest('.site-footer') ? 'footer' : 'other';
+    gtag('event', 'apply_click', { link_location: where, transport_type: 'beacon' });
+  });
+</script>
 </body>
 </html>
